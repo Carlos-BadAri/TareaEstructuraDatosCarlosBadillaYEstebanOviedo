@@ -2,6 +2,7 @@ class Nodo:
     def __init__(self, valor):
         self.valor = valor
         self.siguiente = None
+        self.anteruir = None
 
 class ListaDoblementeEnlazada:
     def __init__(self):
@@ -88,4 +89,3 @@ class ListaDoblementeEnlazada:
             nodoActual.siguiente.anterior = auxiliar
             return valorEliminado
 
-            
