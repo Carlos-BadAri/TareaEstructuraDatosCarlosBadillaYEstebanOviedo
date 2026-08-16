@@ -138,3 +138,13 @@ class ListaDoblementeEnlazada:
         return None
 
 #Crear metodo para pasar de una lista a una cola
+    def listaACola(self):
+        cola = Cola()
+        actual = self.cabeza
+        while actual is not None:
+            if actual.valor.existencias == 0:
+                cola.encolar(actual.valor)
+            actual = actual.siguiente
+        return cola
+
+#Listo
