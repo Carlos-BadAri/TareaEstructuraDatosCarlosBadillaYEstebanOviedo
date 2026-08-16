@@ -11,8 +11,7 @@ class ListaDoblementeEnlazada:
         self.tamano = 0
 
     def listaVacia(self):
-        if self.cabeza is None:
-            return True
+        return self.cabeza is None
 
 #Metodos Agregar
     def agregarAlInicio(self,valor):
@@ -37,7 +36,10 @@ class ListaDoblementeEnlazada:
             self.cola = nuevo_nodo
         self.tamano += 1
 
-    def agregarEnPosicion(self,valor,posicion):
+    def agregarEnPosicion(self, valor, posicion):
+        if posicion < 0 or posicion > self.tamano:
+            print("Posición inválida.")
+            return
         if posicion == 0:
             self.agregarAlInicio(valor)
         elif posicion == self.tamano:
@@ -101,13 +103,13 @@ class ListaDoblementeEnlazada:
             self.tamano -= 1
             return valor_eliminado
 
-    def eliminarProductoPorID(self, ID):
+    def eliminarProductoPorID(self, Id):
             if self.listaVacia():
                 print("La lista está vacía.")
                 return None
             actual = self.cabeza
             while actual:
-                if actual.valor.ID == ID:
+                if actual.valor.Id == Id:
                     #si es el primero
                     if actual == self.cabeza:
                         return self.eliminarAlInicio()
@@ -123,26 +125,16 @@ class ListaDoblementeEnlazada:
             return None #No se encontró
     
  #Metodos Buscar   
-    def buscarProductoPosicion(self,valor):
-        if self.listaVacia() == True:
-            return -1
-        else:
-            nodoActual = self.cabeza
-            while nodoActual is not None:
-                if nodoActual.valor == valor:
-                    return nodoActual
-                nodoActual = nodoActual.siguiente
-            return -1
-
+   
     def buscarIDProducto(self, Id):
-         if self.listaVacia():
+        if self.listaVacia():
             print("La lista está vacía.")
             return None
         actual = self.cabeza
         while actual:
-            if actual.valor.ID == ID:
+            if actual.valor.Id == Id:
                 return actual.valor
             actual = actual.siguiente
-        return None #No se encontró
+        return None
 
 #Crear metodo para pasar de una lista a una cola
