@@ -12,3 +12,4 @@ class producto:
         print("Precio: ", self.precio)
         print("Pais: ", self.pais)
         print("Existencias: ", self.existencias)
+        

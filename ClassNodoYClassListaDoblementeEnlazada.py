@@ -2,90 +2,147 @@ class Nodo:
     def __init__(self, valor):
         self.valor = valor
         self.siguiente = None
-        self.anteruir = None
+        self.anterior = None
 
 class ListaDoblementeEnlazada:
     def __init__(self):
         self.cabeza = None
         self.cola = None
+        self.tamano = 0
 
-    def estaVacia(self):
+    def listaVacia(self):
         if self.cabeza is None:
             return True
 
+#Metodos Agregar
     def agregarAlInicio(self,valor):
-        nuevoNodo= Nodo(valor)
-
-        if self.estaVacia() == True:
-            self.cabeza = nuevoNodo
-            self.cola = nuevoNodo
-
+        nuevo_nodo=Nodo(valor)
+        if self.listaVacia():
+            self.cabeza=nuevo_nodo
+            self.cola=nuevo_nodo
         else:
-            nuevoNodo.siguiente = self.cabeza
-            self.cabeza = nuevoNodo
+            nuevo_nodo.siguiente=self.cabeza
+            self.cabeza.anterior=nuevo_nodo
+            self.cabeza=nuevo_nodo
+        self.tamano+=1
 
     def agregarAlFinal(self,valor):
-        nuevoNodo=Nodo(valor)
-
-        if self.estaVacia() == True:
-            self.cabeza = nuevoNodo
-            self.cola = nuevoNodo
+        nuevo_nodo = Nodo(valor)
+        if self.listaVacia():
+            self.cabeza = nuevo_nodo
+            self.cola = nuevo_nodo
         else:
-            self.cola.siguiente = nuevoNodo
-            self.cola = nuevoNodo
+            nuevo_nodo.anterior = self.cola
+            self.cola.siguiente = nuevo_nodo
+            self.cola = nuevo_nodo
+        self.tamano += 1
 
     def agregarEnPosicion(self,valor,posicion):
-        nuevoNodo=Nodo(valor)
-
         if posicion == 0:
             self.agregarAlInicio(valor)
-        if posicion == self.cola:
+        elif posicion == self.tamano:
             self.agregarAlFinal(valor)
+        else:
+            nuevo_nodo = Nodo(valor)
+            nodoActual = self.cabeza
+            for i in range(posicion - 1):
+                nodoActual = nodoActual.siguiente
+            nuevo_nodo.siguiente = nodoActual.siguiente
+            nuevo_nodo.anterior = nodoActual
+            nodoActual.siguiente.anterior = nuevo_nodo
+            nodoActual.siguiente = nuevo_nodo
+            self.tamano += 1
+
+#Metodos Eliminar
+    def eliminarAlInicio(self):
+        if self.listaVacia():
+            print("La lista esta vaciua")
+            return None
+        valor_eliminado = self.cabeza.valor
+        if self.cabeza == self.cola:
+            self.cabeza = None
+            self.cola = None
+        else:
+            self.cabeza = self.cabeza.siguiente
+            self.cabeza.anterior = None
+        self.tamano -= 1
+        return valor_eliminado
+
+    def eliminarAlFinal(self):
+        if self.listaVacia():
+            print("La lista esta vaciua")
+            return None
+        valor_eliminado = self.cola.valor
+        if self.cabeza != self.cola: #Si hay muchos elementos en la lista
+            self.cola=self.cola.anterior
+            self.cola.siguiente=None
+            self.tamano-=1
+        else: # Si solo hay un nodo en la lista
+            self.cabeza=None
+            self.cola=None
+            self.tamano-=1
+        return valor_eliminado
+
+    def eliminarEnPosicion(self,posicion):
+        if self.listaVacia():
+            print("La lista esta vacia")
+            return None
+        if posicion == 0:
+            return self.eliminarAlInicio()
+        elif posicion == self.tamano - 1:
+            return self.eliminarAlFinal()
         else:
             nodoActual = self.cabeza
             for i in range(posicion):
                 nodoActual = nodoActual.siguiente
+            valor_eliminado = nodoActual.valor
+            nodoActual.anterior.siguiente = nodoActual.siguiente
+            nodoActual.siguiente.anterior = nodoActual.anterior
+            self.tamano -= 1
+            return valor_eliminado
 
-        auxiliar = nodoActual.anterior
-
-        nuevoNodo.siguiente = nodoActual
-        nuevoNodo.anterior = auxiliar
-        auxiliar.siguiente = nuevoNodo
-        nodoActual.anterior = nuevoNodo
-
-    def eliminarAlInicio(self):
-        if self.estaVacia() == True:
+    def eliminarProductoPorID(self, ID):
+            if self.listaVacia():
+                print("La lista está vacía.")
+                return None
+            actual = self.cabeza
+            while actual:
+                if actual.valor.ID == ID:
+                    #si es el primero
+                    if actual == self.cabeza:
+                        return self.eliminarAlInicio()
+                    #si es el ultimo
+                    if actual == self.cola:
+                        return self.eliminarAlFinal()
+                    #si esta en medio, reconectamos los nodos vecinos
+                    actual.anterior.siguiente = actual.siguiente
+                    actual.siguiente.anterior = actual.anterior
+                    self.tamano -= 1
+                    return actual.valor
+                actual = actual.siguiente
+            return None #No se encontró
+    
+ #Metodos Buscar   
+    def buscarProductoPosicion(self,valor):
+        if self.listaVacia() == True:
             return -1
-        else:
-            valorEliminado = self.cabeza.valor
-            self.cabeza = self.cabeza.siguiente
-            self.cabeza.anterior = None
-            return valorEliminado
-
-
-    def eliminarAlFinal(self):
-        if self.estaVacia() == True:
-            return -1
-        else:
-            valorEliminado = self.cola.valor
-            self.cola = self.cola.anterior
-            self.cola.siguiente = None
-            return valorEliminado
-
-    def eliminarEnPosicion(self,posicion):
-        if self.estaVacia() == True:
-            return -1
-        if posicion == 0:
-            return self.eliminarAlInicio()
-        if posicion == self.cola:
-            return self.eliminarAlFinal()
         else:
             nodoActual = self.cabeza
-            for i in range(posicion - 1):
+            while nodoActual is not None:
+                if nodoActual.valor == valor:
+                    return nodoActual
                 nodoActual = nodoActual.siguiente
-                valorEliminado = nodoActual.valor
-            auxiliar = nodoActual.anterior
-            auxiliar.siguiente = nodoActual.siguiente
-            nodoActual.siguiente.anterior = auxiliar
-            return valorEliminado
+            return -1
 
+    def buscarIDProducto(self, Id):
+         if self.listaVacia():
+            print("La lista está vacía.")
+            return None
+        actual = self.cabeza
+        while actual:
+            if actual.valor.ID == ID:
+                return actual.valor
+            actual = actual.siguiente
+        return None #No se encontró
+
+#Crear metodo para pasar de una lista a una cola
