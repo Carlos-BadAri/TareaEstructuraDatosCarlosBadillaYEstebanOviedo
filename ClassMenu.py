@@ -8,7 +8,8 @@ def menu(lista):
         print("2. Eliminar producto")
         print("3. Buscar producto")
         print("4. Mostrar productos")
-        print("5. Salir")
+        print("5. Generar cola de productos sin exixstencia")
+        print("6. Salir")
         opcion = input("Seleccione una opcion: ")
 
         match opcion:
@@ -42,6 +43,10 @@ def menu(lista):
                         actual = actual.siguiente
 
             case "5":
+                colaCompras = lista.listaACola
+                colaCompras.mostrar()
+
+            case "6":
                 print("Saliendo del programa...")
                 break
 
