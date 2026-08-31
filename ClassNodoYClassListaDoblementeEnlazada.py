@@ -148,4 +148,29 @@ class ListaDoblementeEnlazada:
             actual = actual.siguiente
         return cola
 
-#Listo
+#Metodo genarar frecuencia por pais
+    def contarPorPais(self):
+        frecuencia = {}
+        actual = self.cabeza
+        while actual is not None:
+            pais = actual.valor.pais
+            if pais in frecuencia: 
+                frecuencia[pais] += 1
+            else:
+                frecuencia[pais] = 1
+            actual = actual.siguiente
+        return frecuencia
+    
+    #Metodo recursivo
+    def mostrarRecursivoAux(self, nodo):
+        #cuando llegue a NOne ya no hay nada mas que mostrar
+        if nodo is None:
+            return
+        nodo.valor.imprimir()
+        print("-"*20)
+        #Al ser recursivo se llama a si mismo en el siguiente nodo
+        self.mostrarRecursivoAux(nodo.siguiente)
+
+    def mostrarRecursivo(self):
+        #publico, siempre arranca de la cabeza
+        self.mostrarRecursivoAux(self.cabeza)
