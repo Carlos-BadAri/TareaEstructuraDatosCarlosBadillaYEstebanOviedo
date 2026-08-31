@@ -1,4 +1,6 @@
 class producto:
+
+    # Damos los atributos a los productos
     def __init__(self, Id, nombre, precio, pais, existencias):
         self.Id = Id
         self.nombre = nombre
@@ -12,4 +14,3 @@ class producto:
         print("Precio: ", self.precio)
         print("Pais: ", self.pais)
         print("Existencias: ", self.existencias)
-        

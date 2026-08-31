@@ -13,8 +13,11 @@ def menu(lista):
         print("1. Agregar producto")
         print("2. Eliminar producto")
         print("3. Buscar producto")
-        print("4. Mostrar productos")
-        print("5. Salir")
+        print("4. Mostrar productos (recursivo)")
+        print("5. Ver frecuencia de productos por pais")
+        print("6. Generar reporte de recuperacion (archivo .txt)")
+        print("7. Salir")
+
         opcion = input("Seleccione una opcion: ")
 
         match opcion:
@@ -26,30 +29,50 @@ def menu(lista):
                 eliminarProducto(lista)
 
             case "3":
+
                 if lista.listaVacia():
                     print("No hay productos registrados.")
+
                 else:
+
                     Id = int(input("Ingrese el Id del producto a buscar: "))
+
                     encontrado = lista.buscarIDProducto(Id)
 
                     if encontrado is not None:
+
                         print("Producto encontrado:")
                         encontrado.imprimir()
+
                     else:
+
                         print(f"No se encontro un producto con Id {Id}.")
 
             case "4":
+
                 if lista.listaVacia():
                     print("No hay productos registrados.")
+
                 else:
+
                     print("Lista de productos:")
                     lista.mostrarRecursivo()
 
             case "5":
+
+                reporte.mostrarFrecuenciaPaises(lista)
+
+            case "6":
+
+                reporte.generarReporteRecuperacion(lista)
+
+            case "7":
+
                 print("Saliendo del programa...")
                 break
 
             case _:
+
                 print("Opcion invalida, intente de nuevo.")
 
 
@@ -76,36 +99,49 @@ def agregarProducto(lista):
     match subopcion:
 
         case "1":
+
             nuevoProducto = pedirDatosProducto()
+
             lista.agregarAlInicio(nuevoProducto)
+
             print("Producto agregado al inicio.")
 
         case "2":
+
             nuevoProducto = pedirDatosProducto()
+
             lista.agregarAlFinal(nuevoProducto)
+
             print("Producto agregado al final.")
 
         case "3":
+
             posicion = int(
-                input(f"Ingrese la posicion (0 a {lista.tamano}): ")
-            )
+                input(f"Ingrese la posicion (0 a {lista.tamano}): "))
 
             if posicion < 0 or posicion > lista.tamano:
+
                 print("Posicion invalida.")
                 return
 
             nuevoProducto = pedirDatosProducto()
-            lista.agregarEnPosicion(nuevoProducto, posicion)
+
+            lista.agregarEnPosicion(
+                nuevoProducto,
+                posicion
+            )
 
             print(f"Producto agregado en la posicion {posicion}.")
 
         case _:
+
             print("Opcion invalida.")
 
 
 def eliminarProducto(lista):
 
     if lista.listaVacia():
+
         print("No hay productos para eliminar.")
         return
 
@@ -120,38 +156,41 @@ def eliminarProducto(lista):
     match subopcion:
 
         case "1":
-            Id = int(
-                input("Ingrese el Id del producto a eliminar: ")
-            )
+
+            Id = int(input("Ingrese el Id del producto a eliminar: "))
 
             eliminado = lista.eliminarProductoPorID(Id)
 
             if eliminado is not None:
+
                 print("Producto eliminado:")
                 eliminado.imprimir()
+
             else:
+
                 print(f"No se encontro un producto con Id {Id}.")
 
         case "2":
+
             eliminado = lista.eliminarAlInicio()
 
             print("Producto eliminado:")
             eliminado.imprimir()
 
         case "3":
+
             eliminado = lista.eliminarAlFinal()
 
             print("Producto eliminado:")
             eliminado.imprimir()
 
         case "4":
+
             posicion = int(
-                input(
-                    f"Ingrese la posicion (0 a {lista.tamano - 1}): "
-                )
-            )
+                input(f"Ingrese la posicion " f"(0 a {lista.tamano - 1}): "))
 
             if posicion < 0 or posicion > lista.tamano - 1:
+
                 print("Posicion invalida.")
                 return
 
@@ -161,6 +200,7 @@ def eliminarProducto(lista):
             eliminado.imprimir()
 
         case _:
+
             print("Opcion invalida.")
 
 
