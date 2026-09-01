@@ -1,3 +1,5 @@
+from datetime import date #Esta libreria nos sirve para obtener la fecha que tiene la compu y ponerlo en el archivo
+
 class Reporte:
 
     # Con esta clase vamos a llevar todo lo relacionado
@@ -19,11 +21,24 @@ class Reporte:
         # Recorremos todos los elementos del diccionario.
         # pais representa los paises y cantidad
         # la cantidad de productos.
+
+        paisMayor = ""
+        cantidadMayor = 0
+
         for pais, cantidad in frecuencia.items():
 
             print(f"{pais}: {cantidad} producto(s)")
 
+            if cantidad > cantidadMayor:
+                cantidadMayor = cantidad
+                paisMayor = pais
+
+        print(f"\nEl pais del que se importan mas productos es: {paisMayor}")
+        print(f"Cantidad de productos: {cantidadMayor}")
+        
     def generarReporteRecuperacion(self, lista, nombreArchivo="ReporteRecuperacion.txt"):
+
+        fechaActual = date.today()
 
         if lista.listaVacia():
             print("No hay productos en la lista, NO se genero el reporte.")
@@ -38,6 +53,8 @@ class Reporte:
         with open(nombreArchivo, "w") as archivo:
 
             archivo.write("REPORTE DE RECUPERACION DEL SUPERMERCADO\n")
+
+            archivo.write(f"Fecha: {fechaActual}\n")
 
             archivo.write("=" * 30 + "\n\n")
 

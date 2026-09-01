@@ -126,6 +126,10 @@ class ListaDoblementeEnlazada:
 
     def eliminarEnPosicion(self, posicion):
 
+        if posicion < 0 or posicion >= self.tamano:
+            print("Posicion invalida.")
+            return None
+
         if self.listaVacia():
             print("La lista esta vacia")
             return None
