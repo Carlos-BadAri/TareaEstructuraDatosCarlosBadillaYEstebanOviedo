@@ -1,0 +1,29 @@
+REPORTE DE RECUPERACION DEL SUPERMERCADO
+==============================
+
+Producto: Cafe (Id: 6)
+    Precio: 2500.0
+    Existencias: 14
+    Subtotal a Recuperar: 35000.0
+Producto: Azucar (Id: 5)
+    Precio: 1100.0
+    Existencias: 8
+    Subtotal a Recuperar: 8800.0
+Producto: Pan (Id: 4)
+    Precio: 800.0
+    Existencias: 0
+    Subtotal a Recuperar: 0.0
+Producto: Leche (Id: 3)
+    Precio: 900.0
+    Existencias: 5
+    Subtotal a Recuperar: 4500.0
+Producto: Frijoles (Id: 2)
+    Precio: 1200.0
+    Existencias: 0
+    Subtotal a Recuperar: 0.0
+Producto: Arroz (Id: 1)
+    Precio: 1500.0
+    Existencias: 10
+    Subtotal a Recuperar: 15000.0
+------------------------------
+TOTAL A RECUPERAR: 63300.0
